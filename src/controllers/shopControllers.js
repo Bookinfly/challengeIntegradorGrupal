@@ -1,24 +1,3 @@
- // import { promises as fs } from 'fs';
-// import { fileURLToPath } from 'url';
-// import { dirname, join } from 'path';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-
-// global.jsonData = {}; // Inicializa como objeto vacío
-
-// async function loadJsonData() {
-//     try {
-//         const data = await fs.readFile(join(__dirname, '../../public/pages/shop/shopProducts.json'), 'utf8');
-//         global.jsonData = JSON.parse(data);
-//     } catch (error) {
-//         console.error(`Error loading JSON data: ${error.message}`);
-//     }
-// }
-
-// // Llama a loadJsonData al inicio de tu aplicación
-// await loadJsonData().catch(err => console.error(err));
-// así funciona con malas practicas
 
 
 import { promises as fs } from 'fs';
@@ -67,9 +46,6 @@ const shopControllers = {
     item: (req, res) => res.render('shop/item', {
         view: {
             title: "Item | Funkoshop"  
-        },
-        data: {
-            jsonData
         }
     }),
     
@@ -90,14 +66,15 @@ const shopControllers = {
     },
 
     cart: (req, res) => {
-        let myVariable = "some value"; // Define tu variable aquí
         res.render('shop/cart', {
             view: {
                 title: "Cart | Funkoshop",
-                jsonData: jsonData // Pasa tu variable a la vista
+                jsonData: jsonData // Usa directamente la variable global
             },
         });
     },
+    
+    
     
 
     checkout: (req, res) => {
@@ -109,4 +86,3 @@ const shopControllers = {
 }
 
 export default shopControllers;
-console.log(jsonData.products[0].id)
